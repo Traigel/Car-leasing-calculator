@@ -1,0 +1,103 @@
+@import '../../styles/Variablies';
+
+button {
+  //display: flex;
+  //flex-direction: column;
+  //justify-content: center;
+  align-items: center;
+  padding: 8px 16px 12px;
+  gap: 10px;
+
+  width: 426px;
+  height: 68px;
+
+  background-color: $bgElement;
+  border-radius: 40px;
+  border: none;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+
+  font-family: Nekst;
+  font-size: 30px;
+  line-height: 36px;
+  color: $color;
+
+  transition-duration: 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $basicColor;
+  }
+
+  &:active {
+    background-color: $secondColor;
+  }
+
+  @media (max-width: 1024px) {
+    width: 345px;
+  }
+
+  @media (max-width: 360px) {
+    padding: 7px 16px 11px;
+    width: 280px;
+    height: 60px;
+    font-size: 22px;
+    line-height: 20px;
+  }
+
+  .loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid $color;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+
+    @media (max-width: 360px) {
+      width: 38px;
+      height: 38px;
+    }
+
+    @keyframes rotation {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  }
+}
+
+.fade {
+  opacity: 60%;
+  cursor: not-allowed;
+
+  &:hover {
+    background-color: $bgElement;
+  }
+
+  &:active {
+    background-color: $bgElement;
+  }
+}
+
+.loaderButton {
+  cursor: not-allowed;
+
+  &:hover {
+    background-color: $bgElement;
+  }
+
+  &:active {
+    background-color: $bgElement;
+  }
+}
+
+
+
+
+
+
+

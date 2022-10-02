@@ -1,0 +1,60 @@
+@import '../../styles/Variablies';
+
+.inputBlock {
+  position: relative;
+  //display: inline-block;
+  width: 427px;
+  height: 119px;
+  background-color: aqua;
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+
+  p:nth-child(1) {
+    font-size: 16px;
+    line-height: 20px;
+    color: $secondColor;
+  }
+
+  input {
+    position: relative;
+    top: 20%;
+
+    background: $bgInput;
+    border: 2px solid $bgInput;
+    border-radius: 16px;
+
+    width: 353px;
+    height: 58%;
+
+    font-family: Nekst;
+    font-size: 30px;
+    line-height: 36px;
+    color: $secondColor;
+    padding-left: 20px;
+    padding-right: 50px;
+
+    &:focus {
+      outline:none;
+      background-color: $color ;
+    }
+  }
+
+  p:nth-child(3) {
+    position: relative;
+    display: inline-block;
+    left: 91%;
+    bottom: 32px;
+    font-family: Nekst;
+    font-size: 30px;
+    line-height: 36px;
+    color: $secondColor;
+  }
+}
+
+.disabled {
+  opacity: 60%;
+}
+
+
