@@ -1,1 +1,1 @@
-# -ar-leasing-calculator
+# Car leasing calculator
