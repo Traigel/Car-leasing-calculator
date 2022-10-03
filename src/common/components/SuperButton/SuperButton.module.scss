@@ -1,26 +1,19 @@
 @import '../../styles/Variablies';
 
 button {
-  //display: flex;
-  //flex-direction: column;
-  //justify-content: center;
   align-items: center;
   padding: 8px 16px 12px;
   gap: 10px;
-
   width: 426px;
   height: 68px;
-
   background-color: $bgElement;
   border-radius: 40px;
   border: none;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-
   font-family: Nekst;
   font-size: 30px;
   line-height: 36px;
   color: $color;
-
   transition-duration: 0.3s;
   cursor: pointer;
 
@@ -32,11 +25,11 @@ button {
     background-color: $secondColor;
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1439px) {
     width: 345px;
   }
 
-  @media (max-width: 360px) {
+  @media (max-width: 767px) {
     padding: 7px 16px 11px;
     width: 280px;
     height: 60px;
@@ -54,7 +47,7 @@ button {
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
 
-    @media (max-width: 360px) {
+    @media (max-width: 767px) {
       width: 38px;
       height: 38px;
     }
@@ -94,10 +87,3 @@ button {
     background-color: $bgElement;
   }
 }
-
-
-
-
-
-
-

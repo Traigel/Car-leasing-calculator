@@ -8,11 +8,30 @@
   }
 
   .app {
-    width: 100%;
+    width: 80%;
     margin: 0 auto;
-    background-color: cadetblue;
 
-    @media (max-width: 1440px) {
+    @media (max-width: 1699px) {
+      width: 90%;
+    }
+
+    @media (max-width: 1599px) {
+      width: 100%;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    @media (max-width: 1439px) {
+      padding-left: 48px;
+      padding-right: 48px;
+    }
+
+    @media (max-width: 1023px) {
+      padding-left: 36px;
+      padding-right: 36px;
+    }
+
+    @media (max-width: 767px) {
       padding-left: 20px;
       padding-right: 20px;
     }

@@ -1,7 +1,5 @@
 import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, ReactNode, useEffect} from 'react'
-import Slider from "@mui/material/Slider";
 import styles from './SuperInput.module.scss'
-import {useDebounce} from "../../hooks/useDebounce";
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
@@ -84,10 +82,7 @@ export const SuperInput = ({
                     disabled={disabled}
                 />
             </div>
-
-
         </div>
-
     )
 }
 

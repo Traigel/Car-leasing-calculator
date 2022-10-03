@@ -5,46 +5,52 @@
   display: inline-block;
   width: 427px;
   height: 119px;
-  background-color: darkgray;
-  margin-top: 30px;
-
   flex: none;
   order: 0;
   flex-grow: 0;
 
-  margin-left: 20px;
-  margin-right: 20px;
-
-  @media (max-width: 1440px) {
+  @media (max-width: 1439px) {
     width: 100%;
-    margin-left: 0;
+    margin: 16px 0;
+  }
+
+  @media (max-width: 767px) {
+    margin: 8px 0;
+    height: 96px;
   }
 
   p:nth-child(1) {
     font-size: 16px;
     line-height: 20px;
     color: $secondColor;
+
+    @media (max-width: 767px) {
+      font-size: 14px;
+      line-height: 136%;
+      color: $miniColor;
+    }
   }
 
   input:nth-child(2) {
     position: relative;
     top: 23px;
-
     background: $bgInput;
     border: 2px solid $bgInput;
     border-radius: 16px;
-
-    width: 403px;
-    height: 58%;
-
+    width: 100%;
+    height: 68px;
     font-family: Nekst;
     font-size: 30px;
     line-height: 36px;
     color: $secondColor;
     padding-left: 20px;
 
-    @media (max-width: 1440px) {
-      width: 100%;
+    @media (max-width: 767px) {
+      height: 60px;
+      top: 10px;
+      color: $miniColor;
+      font-size: 22px;
+      line-height: 20px;
     }
 
     &:focus {
@@ -63,25 +69,30 @@
     position: absolute;
     text-align: right;
     display: inline-block;
-    left: 80%;
-    bottom: 21px;
+    right: 20px;
+    bottom: 24px;
     font-family: Nekst;
     font-size: 30px;
     line-height: 36px;
     color: $secondColor;
 
-    @media (max-width: 1440px) {
-      right: 20px;
-      left: 0;
+    @media (max-width: 767px) {
+      bottom: 19px;
+      color: $miniColor;
     }
   }
 
   .wrapper {
-    width: 385px;
+    width: 100%;
     position: relative;
     z-index: 5;
-    bottom: -8px;
-    left: 20px;
+    bottom: -9px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    @media (max-width: 767px) {
+      bottom: 4px;
+    }
 
     .slider {
       -webkit-appearance: none;
@@ -91,7 +102,7 @@
       outline: none;
       -webkit-transition: .2s;
       transition: opacity .2s;
-      margin: 12px 0px 5px 0px;
+      margin: 12px 0 5px 0;
       cursor: pointer;
 
       &:hover {
@@ -104,18 +115,15 @@
         height: 20px;
         border-radius: 100%;
         background: $bgElement;
+        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
       }
     }
 
   }
-
-
 }
-
 
 .disabled {
   opacity: 50%;
-  cursor: not-allowed;
 }
 
 

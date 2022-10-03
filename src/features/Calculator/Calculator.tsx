@@ -49,13 +49,13 @@ export const Calculator = () => {
                 <SuperInput
                     title={'Стоимость автомобиля'}
                     label={'₽'}
-                    classNameLabel={styles.currencyLabel}
                     value={price}
                     valueInput={price}
                     onChangeValue={onChangePriceHandler}
                     onChangeValueInput={onChangePriceHandler}
                     min={1000000}
                     max={6000000}
+
                 />
                 <SuperInput
                     title={'Первоначальный взнос'}
@@ -95,7 +95,10 @@ export const Calculator = () => {
                     <p>Ежемесячный платеж от</p>
                     <span>{finalMonthPay + ' ₽'}</span>
                 </div>
-                <SuperButton>Оставить заявку</SuperButton>
+                <div className={styles.buttonBlock}>
+                    <SuperButton>Оставить заявку</SuperButton>
+                </div>
+
             </div>
         </div>
     )
