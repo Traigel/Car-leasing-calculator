@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './App.module.css'
+import styles from './App.module.scss'
 import {Calculator} from "../features/Calculator/Calculator";
 
 export const App = () => {

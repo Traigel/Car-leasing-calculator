@@ -39,14 +39,12 @@ export const Calculator = () => {
     const finalMonthPay = monthPay.toString().replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ')
     const finalRentAmount = rentAmount.toString().replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ')
 
-
     return (
 
         <div className={styles.calculatorBlock}>
             <div className={styles.title}>
                 <h1>Рассчитайте стоимость автомобиля в лизинг</h1>
             </div>
-
             <div className={styles.inputs}>
                 <SuperInput
                     title={'Стоимость автомобиля'}

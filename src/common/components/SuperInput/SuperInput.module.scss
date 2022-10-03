@@ -5,7 +5,7 @@
   display: inline-block;
   width: 427px;
   height: 119px;
-  //background-color: aqua;
+  background-color: darkgray;
   margin-top: 30px;
 
   flex: none;
@@ -26,7 +26,7 @@
     color: $secondColor;
   }
 
-  input {
+  input:nth-child(2) {
     position: relative;
     top: 23px;
 
@@ -48,8 +48,8 @@
     }
 
     &:focus {
-      outline:none;
-      background-color: $color ;
+      outline: none;
+      background-color: $color;
     }
 
     &::-webkit-outer-spin-button,
@@ -71,21 +71,47 @@
     color: $secondColor;
 
     @media (max-width: 1440px) {
-      left: 90%;
+      right: 20px;
+      left: 0;
     }
   }
 
-  .slider {
+  .wrapper {
+    width: 385px;
     position: relative;
+    z-index: 5;
     bottom: -8px;
-    left: 22px;
-    width: 380px;
+    left: 20px;
 
-    @media (max-width: 1440px) {
+    .slider {
+      -webkit-appearance: none;
       width: 100%;
+      height: 2px;
+      background-color: $bgElement;
+      outline: none;
+      -webkit-transition: .2s;
+      transition: opacity .2s;
+      margin: 12px 0px 5px 0px;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      &::-webkit-slider-thumb {
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 100%;
+        background: $bgElement;
+      }
     }
+
   }
+
+
 }
+
 
 .disabled {
   opacity: 50%;

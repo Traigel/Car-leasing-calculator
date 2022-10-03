@@ -43,8 +43,9 @@ export const SuperInput = ({
         }
     }
 
-    const onChangeSliderHandler = (event: Event, newValue: number | number[]) => {
-        onChangeValue(newValue as number);
+    const onChangeSliderHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        const {value} = e.target;
+        onChangeValue(parseInt(value, 10));
     };
 
     useEffect(() => {
@@ -58,49 +59,6 @@ export const SuperInput = ({
 
     const finalClassName = `${styles.inputBlock} ${disabled ? styles.disabled : ''}`
     const finalClassNameLabel = `${classNameLabel ? classNameLabel : ''}`
-    const disableStyleSlider = {
-        '& .MuiSlider-rail': {
-            color: '#E1E1E1',
-            height: '2px',
-        },
-        '& .MuiSlider-track': {
-            color: '#FF9514',
-            border: 'none',
-            height: '2px',
-        },
-        '& .MuiSlider-thumb': {
-            color: '#FF9514',
-            width: 20,
-            height: 20,
-            '&:before': {
-                boxShadow: '0 4px 8px rgba(0,0,0,0.4)',
-            },
-            '&:hover, &.Mui-focusVisible, &.Mui-active': {
-                boxShadow: 'none',
-            },
-        },
-    }
-    const styleSlider = disabled ? disableStyleSlider : {
-        color: '#FF9514',
-        '& .MuiSlider-rail': {
-            color: '#E1E1E1',
-            height: '2px',
-        },
-        '& .MuiSlider-track': {
-            border: 'none',
-            height: '2px',
-        },
-        '& .MuiSlider-thumb': {
-            width: 20,
-            height: 20,
-            '&:before': {
-                boxShadow: '0 4px 8px rgba(0,0,0,0.4)',
-            },
-            '&:hover, &.Mui-focusVisible, &.Mui-active': {
-                boxShadow: 'none',
-            },
-        },
-    }
     const setValueInput = valueInput.toString().replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ')
     const finalValueInput = currency ? setValueInput + currency : setValueInput
 
@@ -116,15 +74,18 @@ export const SuperInput = ({
                 {...restProps}
             />
             <p className={finalClassNameLabel}>{label}</p>
-            <Slider
-                value={value}
-                onChange={onChangeSliderHandler}
-                className={styles.slider}
-                disabled={disabled}
-                sx={styleSlider}
-                min={min}
-                max={max}
-            />
+            <div className={styles.wrapper}>
+                <input
+                    type="range"
+                    value={value}
+                    onChange={onChangeSliderHandler}
+                    max={max} min={min}
+                    className={styles.slider}
+                    disabled={disabled}
+                />
+            </div>
+
+
         </div>
 
     )
