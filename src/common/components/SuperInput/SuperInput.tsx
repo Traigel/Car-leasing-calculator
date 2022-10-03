@@ -1,6 +1,7 @@
 import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, useEffect} from 'react'
 import Slider from "@mui/material/Slider";
 import styles from './SuperInput.module.scss'
+import {useDebounce} from "../../hooks/useDebounce";
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
@@ -33,6 +34,8 @@ export const SuperInput = ({
                                ...restProps
                            }: SuperInputTextPropsType) => {
 
+    const debouncedValue = useDebounce<number>(value, 1000)
+
     const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.currentTarget.value.replace(/[^+\d]/g, '')
         if (/^\d+$/.test(value)) {
@@ -51,7 +54,7 @@ export const SuperInput = ({
         if (value > max) {
             onChangeValue(max)
         }
-    }, [value])
+    }, [debouncedValue])
 
     const finalClassName = `${styles.inputBlock} ${disabled ? styles.disabled : ''}`
     const finalClassNameLabel = `${classNameLabel ? classNameLabel : ''}`
