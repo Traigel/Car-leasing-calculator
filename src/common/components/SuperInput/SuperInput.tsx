@@ -1,4 +1,4 @@
-import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, useEffect} from 'react'
+import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, ReactNode, useEffect} from 'react'
 import Slider from "@mui/material/Slider";
 import styles from './SuperInput.module.scss'
 import {useDebounce} from "../../hooks/useDebounce";
@@ -7,7 +7,7 @@ type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElem
 
 type SuperInputTextPropsType = DefaultInputPropsType & {
     title: string
-    label: string | number
+    label: string | number | ReactNode
     value: number
     onChangeValue: (value: number) => void
     valueInput: number
@@ -34,10 +34,10 @@ export const SuperInput = ({
                                ...restProps
                            }: SuperInputTextPropsType) => {
 
-    const debouncedValue = useDebounce<number>(value, 1000)
+    // const debouncedValue = useDebounce<number>(value, 1000)
 
     const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        const value = e.currentTarget.value.replace(/[^+\d]/g, '')
+        const value = JSON.parse(e.currentTarget.value.replace(/[^+\d]/g, ''))
         if (/^\d+$/.test(value)) {
             onChangeValueInput && onChangeValueInput(+value)
         }
@@ -54,7 +54,7 @@ export const SuperInput = ({
         if (value > max) {
             onChangeValue(max)
         }
-    }, [debouncedValue])
+    }, [value])
 
     const finalClassName = `${styles.inputBlock} ${disabled ? styles.disabled : ''}`
     const finalClassNameLabel = `${classNameLabel ? classNameLabel : ''}`
@@ -104,7 +104,6 @@ export const SuperInput = ({
     const setValueInput = valueInput.toString().replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ')
     const finalValueInput = currency ? setValueInput + currency : setValueInput
 
-    console.log(setValueInput)
     return (
         <div className={finalClassName}>
             <p>{title}</p>
@@ -126,9 +125,6 @@ export const SuperInput = ({
                 min={min}
                 max={max}
             />
-            <div>
-                {finalValueInput}
-            </div>
         </div>
 
     )

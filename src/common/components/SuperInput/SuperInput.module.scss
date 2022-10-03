@@ -2,14 +2,23 @@
 
 .inputBlock {
   position: relative;
-  //display: inline-block;
+  display: inline-block;
   width: 427px;
   height: 119px;
   //background-color: aqua;
+  margin-top: 30px;
 
   flex: none;
   order: 0;
   flex-grow: 0;
+
+  margin-left: 20px;
+  margin-right: 20px;
+
+  @media (max-width: 1440px) {
+    width: 100%;
+    margin-left: 0;
+  }
 
   p:nth-child(1) {
     font-size: 16px;
@@ -19,7 +28,7 @@
 
   input {
     position: relative;
-    top: 20%;
+    top: 23px;
 
     background: $bgInput;
     border: 2px solid $bgInput;
@@ -34,6 +43,10 @@
     color: $secondColor;
     padding-left: 20px;
 
+    @media (max-width: 1440px) {
+      width: 100%;
+    }
+
     &:focus {
       outline:none;
       background-color: $color ;
@@ -47,26 +60,36 @@
   }
 
   p:nth-child(3) {
-    position: relative;
+    position: absolute;
+    text-align: right;
     display: inline-block;
     left: 80%;
-    bottom: 32px;
+    bottom: 21px;
     font-family: Nekst;
     font-size: 30px;
     line-height: 36px;
     color: $secondColor;
+
+    @media (max-width: 1440px) {
+      left: 90%;
+    }
   }
 
   .slider {
     position: relative;
-    bottom: 28px;
+    bottom: -8px;
     left: 22px;
     width: 380px;
+
+    @media (max-width: 1440px) {
+      width: 100%;
+    }
   }
 }
 
 .disabled {
   opacity: 50%;
+  cursor: not-allowed;
 }
 
 

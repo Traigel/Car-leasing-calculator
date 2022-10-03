@@ -1,7 +1,5 @@
-.App {
-
-}
-
-.qwe {
-    background-color: brown;
+.app {
+    width: 100%;
+    margin: 0 auto;
+    background-color: cadetblue;
 }

@@ -1,0 +1,89 @@
+@import '../../common/styles/Variablies';
+
+.calculatorBlock {
+
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  .title {
+
+    h1 {
+      display: block;
+      width: 800px;
+      font-family: Nekst;
+      font-size: 54px;
+      line-height: 90%;
+    }
+  }
+
+
+  .inputs {
+    display: flex;
+    flex-direction: row;
+
+    @media (max-width: 1440px) {
+      flex-wrap: wrap;
+    }
+
+    .percentagesLabel {
+      bottom: 33px;
+
+      .initialFeeLabel {
+        font-size: 20px;
+        line-height: 120%;
+        background: #EBEBEC;
+        border-radius: 16px;
+        padding: 15px 17px;
+        bottom: -11px;
+        width: 40px;
+
+        &:focus {
+          background-color: $color;
+        }
+      }
+
+
+    }
+
+    .secondInput {
+      &:focus {
+        background-color: $bgInput;
+      }
+    }
+
+    .currencyLabel {
+      left: 90%;
+
+      @media (max-width: 1440px) {
+        left: 95%;
+      }
+    }
+  }
+
+  .info {
+    div {
+      display: inline-block;
+      width: 427px;
+
+      margin-left: 20px;
+      margin-right: 20px;
+
+      p {
+        font-size: 16px;
+        line-height: 150%;
+        color: $secondColor;
+      }
+
+      span {
+        font-family: Nekst;
+        font-size: 54px;
+        line-height: 90%;
+        color: $secondColor;
+      }
+    }
+
+  }
+}
