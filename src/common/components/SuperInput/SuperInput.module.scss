@@ -72,14 +72,16 @@
     text-align: right;
     display: inline-block;
     right: 20px;
-    bottom: 24px;
+    bottom: 26px;
     font-family: Nekst;
     font-size: 30px;
     line-height: 36px;
     color: $secondColor;
 
     @media (max-width: 767px) {
-      bottom: 19px;
+      font-size: 22px;
+      line-height: 20px;
+      bottom: 28px;
       color: $miniColor;
     }
   }

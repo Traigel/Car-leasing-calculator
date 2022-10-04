@@ -67,8 +67,11 @@
         border: none;
 
         @media (max-width: 767px) {
-          padding: 12px 35px 12px 0;
-          bottom: -20px;
+          font-size: 22px;
+          line-height: 20px;
+          padding: 12px 32px 12px 0;
+          bottom: -21px;
+          left: -59px;
           color: $miniColor;
         }
 
@@ -88,8 +91,10 @@
         bottom: -4px;
 
         @media (max-width: 767px) {
-          bottom: -8px;
-          left: -18px;
+          font-size: 22px;
+          line-height: 20px;
+          bottom: -6px;
+          left: -15px;
           color: $miniColor;
         }
       }
