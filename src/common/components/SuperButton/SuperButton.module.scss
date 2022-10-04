@@ -2,7 +2,7 @@
 
 .button {
   align-items: center;
-  padding: 8px 16px 12px;
+  padding: 10px 16px;
   gap: 10px;
   width: 426px;
   height: 68px;
@@ -23,6 +23,7 @@
     @media (max-width: 991px) {
       background-color: $bgElement;
     }
+
   }
 
   &:active {
@@ -40,7 +41,7 @@
   }
 
   @media (max-width: 767px) {
-    padding: 7px 16px 11px;
+    padding: 9px 16px;
     width: 280px;
     height: 60px;
     font-size: 22px;

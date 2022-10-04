@@ -18,13 +18,14 @@
       @media (max-width: 1599px) {
         width: 700px;
       }
+
       @media (max-width: 767px) {
         width: 292px;
         font-size: 34px;
       }
 
       @media (max-width: 340px) {
-        width: 250px;
+        width: 100%;
       }
     }
   }
@@ -55,18 +56,18 @@
         left: -61px;
         font-family: Nekst;
         font-size: 20px;
-        line-height: 120%;
         text-align: right;
+        line-height: 120%;
         color: $secondColor;
         background: #EBEBEC;
         border-radius: 16px;
-        padding: 15px 17px;
+        padding: 15px 35px 15px 10px;
         bottom: -19px;
         width: 74px;
         border: none;
 
         @media (max-width: 767px) {
-          padding: 12px 13px;
+          padding: 12px 35px 12px 0;
           bottom: -20px;
           color: $miniColor;
         }
@@ -74,6 +75,22 @@
         &:focus {
           outline: none;
           background-color: $color;
+        }
+      }
+
+      .label {
+        position: absolute;
+        font-family: Nekst;
+        font-size: 20px;
+        line-height: 120%;
+        color: $secondColor;
+        left: -18px;
+        bottom: -4px;
+
+        @media (max-width: 767px) {
+          bottom: -8px;
+          left: -18px;
+          color: $miniColor;
         }
       }
     }

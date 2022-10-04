@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, KeyboardEvent, useEffect, useRef, useState} from 'react';
 import {SuperInput} from '../../common/components/SuperInput/SuperInput';
 import styles from './Calculator.module.scss'
 import {SuperButton} from "../../common/components/SuperButton/SuperButton";
@@ -6,6 +6,7 @@ import {NumberBoard} from "../../common/components/NumberBoard/NumberBoard";
 import {useAppDispatch} from '../../common/hooks/useAppDispatch';
 import {useAppSelector} from "../../common/hooks/useAppSelector";
 import {setDataTC, setMonthsAC, setPercentagesAC, setPriceAC} from "./calculator-reducer";
+import {valueUtils} from "../../common/utils/value-utils";
 
 export const Calculator = () => {
 
@@ -16,6 +17,11 @@ export const Calculator = () => {
     const percentages = useAppSelector(state => state.calculator.percentages)
     const months = useAppSelector(state => state.calculator.months)
 
+    const [valueDuplicate, setValueDuplicate] = useState<string>('10')
+    const [visibilityValue, setVisibilityValue] = useState<boolean>(false)
+
+    const inputRef = useRef<HTMLInputElement>(null)
+
     const onChangePriceHandler = (value: number) => {
         dispatch(setPriceAC(value))
     }
@@ -25,15 +31,51 @@ export const Calculator = () => {
     }
 
     const onChangeLabelHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        const value = JSON.parse(e.currentTarget.value.replace(/[^+\d]/g, ''))
-        if (/^\d+$/.test(value)) {
-            dispatch(setPercentagesAC(value))
+        if (e.currentTarget.value === '') {
+            setValueDuplicate('')
         }
+        const value = e.currentTarget.value.replace(/[\D]+/g, '')
+        if (/^\d+$/.test(value)) {
+            setValueDuplicate(value)
+        }
+    }
+
+    const onFocusLabelHandler = () => {
+        setVisibilityValue(true)
+        setValueDuplicate(percentages.toString())
+    }
+
+    const onBlurLabelHandler = () => {
+        dispatch(setPercentagesAC(+valueDuplicate))
+        setVisibilityValue(false)
+    }
+
+    const onKeyLabelUpHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            onBlurLabelHandler()
+            inputRef.current?.blur()
+        }
+    }
+
+    const labelHandler = () => {
+        inputRef.current?.focus()
     }
 
     const onChangeMonthsHandler = (value: number) => {
         dispatch(setMonthsAC(value))
     }
+
+
+    useEffect(() => {
+        if (+valueDuplicate < 10) {
+            dispatch(setPercentagesAC(10))
+            setValueDuplicate('10')
+        }
+        if (+valueDuplicate > 60) {
+            dispatch(setPercentagesAC(60))
+            setValueDuplicate('60')
+        }
+    }, [percentages])
 
     const initial = Math.round(price * (percentages / 100)) // Первоначальный взнос
     const monthlyFee = Math.round((price - initial) * ((interestRate * Math.pow((1 + interestRate), months)) / (Math.pow((1 + interestRate), months) - 1))) // Ежемесячный платеж от
@@ -43,8 +85,8 @@ export const Calculator = () => {
         dispatch(setDataTC({interestRate, price, percentages, months, initial, monthlyFee, amountDeal}))
     }
 
-    const finalMonthlyFee = monthlyFee.toString().replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ')
-    const finalAmountDeal = amountDeal.toString().replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ')
+    const finalMonthlyFee = valueUtils(monthlyFee.toString())
+    const finalAmountDeal = valueUtils(amountDeal.toString())
 
     return (
 
@@ -65,11 +107,25 @@ export const Calculator = () => {
                 <SuperInput
                     title={'Первоначальный взнос'}
                     label={
-                        <input
-                            value={percentages + '%'}
-                            className={styles.initialFeeLabel}
-                            onChange={onChangeLabelHandler}
-                        />
+                        <>
+                            <input
+                                value={visibilityValue ? valueDuplicate : percentages}
+                                className={styles.initialFeeLabel}
+                                onChange={onChangeLabelHandler}
+                                onFocus={onFocusLabelHandler}
+                                onBlur={onBlurLabelHandler}
+                                onKeyUp={onKeyLabelUpHandler}
+                                ref={inputRef}
+                                disabled={status === 'loading'}
+                                maxLength={2}
+                            />
+                            <span
+                                className={styles.label}
+                                onClick={status !== 'loading' ? labelHandler : () => {
+                                }}
+                            >%</span>
+                        </>
+
                     }
                     classNameLabel={styles.percentagesLabel}
                     className={styles.secondInput}

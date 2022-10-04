@@ -3,20 +3,17 @@ import styles from './SuperButton.module.scss'
 
 type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
-type SuperButtonPropsType = DefaultButtonPropsType & {
-    disabledLoader?: boolean
-}
-
-export const SuperButton = ({disabledLoader, disabled, className, children, ...restProps}: SuperButtonPropsType) => {
+export const SuperButton = ({disabled, className, children, ...restProps}: DefaultButtonPropsType) => {
 
     const finalClassName = `${styles.button} ${disabled ? styles.fade : ''} ${className}`
 
     return (
         <button
             className={finalClassName}
+            disabled={disabled}
             {...restProps}
         >
-            {disabledLoader && disabled ? <span className={styles.loader}></span> : children}
+            {disabled ? <span className={styles.loader}></span> : children}
         </button>
     )
 }

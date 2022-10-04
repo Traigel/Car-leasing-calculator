@@ -1,7 +1,15 @@
 import Slider from '@mui/material/Slider'
-import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, ReactNode, useEffect} from 'react'
-import {useDebounce} from '../../hooks/useDebounce'
+import React, {
+    ChangeEvent,
+    DetailedHTMLProps,
+    InputHTMLAttributes,
+    KeyboardEvent,
+    ReactNode,
+    useEffect, useRef,
+    useState
+} from 'react'
 import styles from './SuperInput.module.scss'
+import {valueUtils} from "../../utils/value-utils";
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
@@ -34,12 +42,18 @@ export const SuperInput = ({
                                ...restProps
                            }: SuperInputTextPropsType) => {
 
-    const debouncedValue = useDebounce<number>(value, 1000)
+    const inputRef = useRef<HTMLInputElement>(null)
+
+    const [valueDuplicate, setValueDuplicate] = useState<string>(min.toString())
+    const [visibilityValue, setVisibilityValue] = useState<boolean>(false)
 
     const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        const value = JSON.parse(e.currentTarget.value.replace(/[^+\d]/g, ''))
+        if (e.currentTarget.value === '') {
+            setValueDuplicate('')
+        }
+        const value = e.currentTarget.value.replace(/[\D]+/g, '')
         if (/^\d+$/.test(value)) {
-            onChangeValue(value)
+            setValueDuplicate(value)
         }
     }
 
@@ -47,20 +61,43 @@ export const SuperInput = ({
         onChangeValue(newValue as number);
     };
 
-    useEffect(() => {
-        if (value < min) {
-            onChangeValue(min)
+    const onBlurHandler = () => {
+        onChangeValue(+valueDuplicate)
+        setVisibilityValue(false)
+
+    }
+
+    const onFocusHandler = () => {
+        setVisibilityValue(true)
+        setValueDuplicate(value.toString())
+    }
+
+    const onKeyUpHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            onBlurHandler()
+            inputRef.current?.blur()
         }
-        if (value > max) {
-            onChangeValue(max)
-        }
-    }, [debouncedValue])
+    }
 
     const finalClassName = `${styles.inputBlock} ${disabled ? styles.disabled : ''}`
     const finalClassNameLabel = `${classNameLabel ? classNameLabel : ''}`
     const valueInputDuplicate = valueInput ? valueInput : value
-    const setValueInput = valueInputDuplicate.toString().replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ')
-    const finalValueInput = currency ? setValueInput + currency : setValueInput
+    const settingValueInput = valueUtils(valueInputDuplicate.toString())
+    const settingValueDuplicate = valueUtils(valueDuplicate)
+    const finalValueInput = currency ? settingValueInput + currency : settingValueInput
+    const finalValueDuplicate = currency ? settingValueDuplicate + currency : settingValueDuplicate
+
+
+    useEffect(() => {
+        if (+valueDuplicate < min) {
+            onChangeValue(min)
+            setValueDuplicate(JSON.stringify(min))
+        }
+        if (+valueDuplicate > max) {
+            onChangeValue(max)
+            setValueDuplicate(JSON.stringify(max))
+        }
+    }, [value])
 
     const disableStyleSlider = {
         '& .MuiSlider-rail': {
@@ -112,9 +149,16 @@ export const SuperInput = ({
             <input
                 className={className}
                 disabled={disabled}
-                value={finalValueInput}
+                value={visibilityValue ? finalValueDuplicate : finalValueInput}
                 onChange={!blockInput ? onChangeInputHandler : () => {
                 }}
+                onBlur={!blockInput ? onBlurHandler : () => {
+                }}
+                onFocus={!blockInput ? onFocusHandler : () => {
+                }}
+                onKeyUp={!blockInput ? onKeyUpHandler : () => {
+                }}
+                ref={inputRef}
                 {...restProps}
             />
             <p className={finalClassNameLabel}>{label}</p>

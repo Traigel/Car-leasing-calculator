@@ -51,10 +51,12 @@ export const setDataTC = (data: DataType): AppThunk => async (dispatch) => {
 
 // types
 export type InitialStateCalculatorType = typeof initialState
+
 export type CalculatorActionType =
     | ReturnType<typeof setPriceAC>
     | ReturnType<typeof setPercentagesAC>
     | ReturnType<typeof setMonthsAC>
+
 export type DataType = {
     interestRate: number
     price: number
