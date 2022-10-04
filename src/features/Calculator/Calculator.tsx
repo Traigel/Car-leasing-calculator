@@ -1,43 +1,50 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import {SuperInput} from '../../common/components/SuperInput/SuperInput';
 import styles from './Calculator.module.scss'
 import {SuperButton} from "../../common/components/SuperButton/SuperButton";
+import {NumberBoard} from "../../common/components/NumberBoard/NumberBoard";
+import {useAppDispatch} from '../../common/hooks/useAppDispatch';
+import {useAppSelector} from "../../common/hooks/useAppSelector";
+import {setDataTC, setMonthsAC, setPercentagesAC, setPriceAC} from "./calculator-reducer";
 
 export const Calculator = () => {
 
-    const [price, setPrice] = useState<number>(1000000) // Стоимость автомобиля
+    const dispatch = useAppDispatch()
+    const status = useAppSelector(state => state.app.status)
+    const interestRate = useAppSelector(state => state.calculator.interestRate)
+    const price = useAppSelector(state => state.calculator.price)
+    const percentages = useAppSelector(state => state.calculator.percentages)
+    const months = useAppSelector(state => state.calculator.months)
 
     const onChangePriceHandler = (value: number) => {
-        setPrice(value)
+        dispatch(setPriceAC(value))
     }
 
-    const [percentages, setPercentages] = useState<number>(10) // Проценты (Первоначальный взнос)
-
     const onChangePercentagesHandler = (value: number) => {
-        setPercentages(value)
+        dispatch(setPercentagesAC(value))
     }
 
     const onChangeLabelHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const value = JSON.parse(e.currentTarget.value.replace(/[^+\d]/g, ''))
         if (/^\d+$/.test(value)) {
-            setPercentages(value)
+            dispatch(setPercentagesAC(value))
         }
     }
 
-
-    const [months, setMonths] = useState<number>(1) // Срок кредита в месяцах
-
     const onChangeMonthsHandler = (value: number) => {
-        setMonths(value)
+        dispatch(setMonthsAC(value))
     }
 
-    const interestRate = 0.035 // Процентная ставка
     const initial = Math.round(price * (percentages / 100)) // Первоначальный взнос
-    const monthPay = Math.round((price - initial) * ((interestRate * Math.pow((1 + interestRate), months)) / (Math.pow((1 + interestRate), months) - 1))) // Ежемесячный платеж от
-    const rentAmount = initial + months * monthPay // Сумма договора лизинга
+    const monthlyFee = Math.round((price - initial) * ((interestRate * Math.pow((1 + interestRate), months)) / (Math.pow((1 + interestRate), months) - 1))) // Ежемесячный платеж от
+    const amountDeal = initial + months * monthlyFee // Сумма договора лизинга
 
-    const finalMonthPay = monthPay.toString().replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ')
-    const finalRentAmount = rentAmount.toString().replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ')
+    const onClickHandler = () => {
+        dispatch(setDataTC({interestRate, price, percentages, months, initial, monthlyFee, amountDeal}))
+    }
+
+    const finalMonthlyFee = monthlyFee.toString().replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ')
+    const finalAmountDeal = amountDeal.toString().replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ')
 
     return (
 
@@ -50,12 +57,10 @@ export const Calculator = () => {
                     title={'Стоимость автомобиля'}
                     label={'₽'}
                     value={price}
-                    valueInput={price}
                     onChangeValue={onChangePriceHandler}
-                    onChangeValueInput={onChangePriceHandler}
                     min={1000000}
                     max={6000000}
-
+                    disabled={status === 'loading'}
                 />
                 <SuperInput
                     title={'Первоначальный взнос'}
@@ -74,31 +79,37 @@ export const Calculator = () => {
                     min={10}
                     max={60}
                     currency={' ₽'}
+                    blockInput={true}
+                    disabled={status === 'loading'}
                 />
                 <SuperInput
                     title={'Срок лизинга'}
                     label={'мес.'}
                     value={months}
-                    valueInput={months}
                     onChangeValue={onChangeMonthsHandler}
-                    onChangeValueInput={onChangeMonthsHandler}
                     min={1}
                     max={60}
+                    disabled={status === 'loading'}
                 />
             </div>
             <div className={styles.info}>
-                <div>
-                    <p>Сумма договора лизинга</p>
-                    <span>{finalRentAmount + ' ₽'}</span>
-                </div>
-                <div>
-                    <p>Ежемесячный платеж от</p>
-                    <span>{finalMonthPay + ' ₽'}</span>
-                </div>
+                <NumberBoard
+                    title={'Сумма договора лизинга'}
+                    number={finalAmountDeal}
+                    currency={'₽'}/>
+                <NumberBoard
+                    className={styles.board}
+                    title={'Ежемесячный платеж от'}
+                    number={finalMonthlyFee}
+                    currency={'₽'}/>
                 <div className={styles.buttonBlock}>
-                    <SuperButton>Оставить заявку</SuperButton>
+                    <SuperButton
+                        onClick={onClickHandler}
+                        disabled={status === 'loading'}
+                    >
+                        Оставить заявку
+                    </SuperButton>
                 </div>
-
             </div>
         </div>
     )

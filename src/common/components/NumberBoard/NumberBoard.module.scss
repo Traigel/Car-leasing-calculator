@@ -1,0 +1,46 @@
+@import '../../styles/Variablies';
+
+.boardBlock {
+  display: inline-block;
+  width: 427px;
+
+  @media (max-width: 1023px) {
+    width: 300px;
+  }
+
+  @media (max-width: 767px) {
+    width: 100%;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 150%;
+    color: $secondColor;
+
+    @media (max-width: 1439px) {
+      color: #333333;
+    }
+
+    @media (max-width: 767px) {
+      font-size: 14px;
+      line-height: 136%;
+    }
+  }
+
+  span {
+    font-family: Nekst;
+    font-size: 54px;
+    line-height: 90%;
+    color: $secondColor;
+
+    @media (max-width: 1439px) {
+      color: #333333;
+    }
+
+    @media (max-width: 767px) {
+      font-size: 22px;
+      line-height: 20px;
+    }
+
+  }
+}

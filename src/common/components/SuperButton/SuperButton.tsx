@@ -9,7 +9,7 @@ type SuperButtonPropsType = DefaultButtonPropsType & {
 
 export const SuperButton = ({disabledLoader, disabled, className, children, ...restProps}: SuperButtonPropsType) => {
 
-    const finalClassName = `${disabled ? styles.fade : ''} ${className}`
+    const finalClassName = `${styles.button} ${disabled ? styles.fade : ''} ${className}`
 
     return (
         <button
