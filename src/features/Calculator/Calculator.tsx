@@ -137,6 +137,7 @@ export const Calculator = () => {
                     currency={' ₽'}
                     blockInput={true}
                     disabled={status === 'loading'}
+                    tabIndex={-1}
                 />
                 <SuperInput
                     title={'Срок лизинга'}

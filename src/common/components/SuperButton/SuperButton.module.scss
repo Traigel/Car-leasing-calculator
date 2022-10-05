@@ -15,7 +15,11 @@
   line-height: 36px;
   color: $color;
   transition-duration: 0.3s;
-  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    background-color: $basicColor;
+  }
 
   &:hover {
     background-color: $basicColor;
@@ -23,7 +27,6 @@
     @media (max-width: 991px) {
       background-color: $bgElement;
     }
-
   }
 
   &:active {
@@ -78,20 +81,8 @@
   }
 }
 
-.fade {
+.disabled {
   opacity: 60%;
-  cursor: not-allowed;
-
-  &:hover {
-    background-color: $bgElement;
-  }
-
-  &:active {
-    background-color: $bgElement;
-  }
-}
-
-.loaderButton {
   cursor: not-allowed;
 
   &:hover {

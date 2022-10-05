@@ -5,7 +5,7 @@ type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonE
 
 export const SuperButton = ({disabled, className, children, ...restProps}: DefaultButtonPropsType) => {
 
-    const finalClassName = `${styles.button} ${disabled ? styles.fade : ''} ${className}`
+    const finalClassName = `${styles.button} ${disabled ? styles.disabled : ''} ${className}`
 
     return (
         <button
