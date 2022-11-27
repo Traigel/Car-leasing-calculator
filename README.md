@@ -1,5 +1,5 @@
 # Car leasing calculator
-https://Traihel.github.io/Car-leasing-calculator
+https://Traigel.github.io/Car-leasing-calculator
 
 Car leasing calculator. To calculate the terms of leasing, you only need to enter the cost of the car, the amount of the advance, the loan term in months - the calculator will calculate the monthly payment.
 
